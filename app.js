@@ -14,11 +14,13 @@ var request = require('request');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
 var Router = require('react-router');
+var routes = require('./app/routes');
 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var xml2js = require('xml2js');
 var _ = require('underscore');
+var config = require('./config');
 
 var app = express();
 
@@ -59,7 +61,7 @@ app.use(function(req, res) {
       res.status(302).redirect(redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
         var html = ReactDOM.renderToString(React.createElement(Router.RoutingContext, renderProps));
-        var page = swig.renderFile('views/index.html', { html: html });
+        var page = res.render('index', { title: 'Testing' });
         res.status(200).send(page);
     } else {
       res.status(404).send('Page Not Found')
