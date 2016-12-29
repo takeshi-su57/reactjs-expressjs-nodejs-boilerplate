@@ -61,6 +61,7 @@ app.use(function(req, res) {
       res.status(302).redirect(redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
         var html = ReactDOM.renderToString(React.createElement(Router.RoutingContext, renderProps));
+        res.setHeader("Content-Type", "text/html");
         var page = res.render('index', { title: 'Testing' });
         res.status(200).send(page);
     } else {
